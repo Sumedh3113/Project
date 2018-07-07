@@ -64,6 +64,8 @@ numberchose['values'] = (1,2,3,4,100)
 numberchose.grid(column =1, row = 1)
 numberchose.current(0)
 
+'''
+'''
 # Creating three checkbuttons
 
 
@@ -114,6 +116,7 @@ rad2.grid(column=1, row=5, sticky=tk.W, columnspan=3)
 
 rad3 = tk.Radiobutton(win, text=COLOR3, variable=radVar, value=3, command=radCall)
 rad3.grid(column=2, row=5, sticky=tk.W, columnspan=3)
+
 '''
 '''
 # Using a scrolled Text control    
@@ -122,6 +125,36 @@ scrolH  =  3
 scr = scrolledtext.ScrolledText(win, width=scrolW, height=scrolH, wrap=tk.WORD)# wrap=tk.WORD to break lines by words 
 																			   #if we use wrap = tk.char then will wrap around the word
 scr.grid(column=0, columnspan=3)# so our scroll text will have 3 column of space initially
+
+'''
+Changing radio button using for loop
+'''
+# First, we change our Radiobutton global variables into a list.
+colors = ["Blue", "Gold", "Red"]
+
+# We have also changed the callback function to be zero-based, using the list instead of module-level global variables. 
+# Radiobutton callback function
+def radCall():
+    radSel=radVar.get()
+    if   radSel == 0: win.configure(background=colors[0])
+    elif radSel == 1: win.configure(background=colors[1])
+    elif radSel == 2: win.configure(background=colors[2])
+
+radVar = tk.IntVar()
+
+# Next we are selecting a non-existing index value for radVar.
+radVar.set(99)    
+'''# so that radio button with value 99 will be selected 
+so that we don't have anything coded for value 99 no effect is displayed '''
+
+# Now we are creating all three Radiobutton widgets within one loop.
+for col in range(3): 
+	'''# if we want to create 100 of these radio buttons we just have to change value from 3 to 100
+    curRad = 'rad' + str(col) # what does it do?  It is just taking string rad and converting value of column to str() '''
+	using type casting and then just storing it so 3 line above will reduced to 1 line 
+    curRad = tk.Radiobutton(win, text=colors[col], variable=radVar, value=col, command=radCall)
+    curRad.grid(column=col, row=6, sticky=tk.W)
+
 
 
 nameEntered.focus()      # Place cursor into name Entry
