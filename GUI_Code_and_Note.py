@@ -10,12 +10,23 @@ import tkinter as tk
 from tkinter import ttk  # for adding widget we use
 from tkinter import scrolledtext # for adding a scrollbar and text box
 
+'''
+Self-Notes: Here we arranged values in the form of 3 columns 
+so we want some widget in center we should change the column value from 0 to 1
+'''
 
 # Create instance
 win = tk.Tk()   
 
 # Add a title       
 win.title("Python GUI")
+
+'''
+We will create "Sumedh" a child of main window frame "win"
+and will replace every occurrence of win with Sumedh and all the widget will be contained in "Sumedh" 
+'''
+monty = ttk.LabelFrame(tab1, text=' Monty Python ')
+monty.grid(column=0, row=0, padx=8, pady=4)
 
 # Disable resizing the GUI
 #win.resizable(0,0)   
@@ -74,7 +85,8 @@ check1 = tk.Checkbutton(win, text="Disabled", variable=chVarDis, state='disabled
 check1.select() 
 # to select the checkbox
 check1.grid(column=0, row=4, sticky=tk.W) 
-# W show alignment to west grid i.e left side                 
+# W show alignment to west grid i.e left side    
+             
 
 chVarUn = tk.IntVar()
 check2 = tk.Checkbutton(win, text="UnChecked", variable=chVarUn) 
@@ -124,6 +136,7 @@ scrolW  = 30  # These are the std values which we use but we can change them for
 scrolH  =  3
 scr = scrolledtext.ScrolledText(win, width=scrolW, height=scrolH, wrap=tk.WORD)# wrap=tk.WORD to break lines by words 
 																			   #if we use wrap = tk.char then will wrap around the word
+#scr.grid(column=0, sticky='WE', columnspan=3)# sticky = WE is for west alignment 
 scr.grid(column=0, columnspan=3)# so our scroll text will have 3 column of space initially
 
 '''
@@ -154,7 +167,29 @@ for col in range(3):
 	using type casting and then just storing it so 3 line above will reduced to 1 line 
     curRad = tk.Radiobutton(win, text=colors[col], variable=radVar, value=col, command=radCall)
     curRad.grid(column=col, row=6, sticky=tk.W)
+'''
+'''
+# Create a container to hold labels
 
+labelsFrame = ttk.LabelFrame(win, text=' Labels in a Frame ')
+labelsFrame.grid(column=0, row=7, padx=20, pady=40)
+
+
+# Place labels into the container element
+ttk.Label(labelsFrame, text="Label1").grid(column=0, row=0, sticky=tk.W)
+
+# This will arrange the labels horizontally But
+# we can arrange it vertically by changing the row value as row =0 row =1 etc
+ttk.Label(labelsFrame, text="Label2").grid(column=1, row=0, sticky=tk.W)
+ttk.Label(labelsFrame, text="Label3").grid(column=2, row=0, sticky=tk.W)
+
+#To add padding after each child in label field
+for child in labelsFrame.winfo_children(): 
+    child.grid_configure(padx=8, pady=4)
+
+
+'''
+'''
 
 
 nameEntered.focus()      # Place cursor into name Entry
